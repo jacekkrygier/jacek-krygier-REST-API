@@ -18,7 +18,7 @@ public class TrelloController {
     @Autowired
     private TrelloService trelloService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "/getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
         return trelloService.fetchTrelloBoards();
 
@@ -43,7 +43,7 @@ public class TrelloController {
                 .forEach(tb -> System.out.println(tb.getId() + " " + tb.getName()));*/
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
+    @RequestMapping(method = RequestMethod.POST, value = "/createTrelloCard")
     public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
         return trelloService.createTrelloCard(trelloCardDto);
     }
