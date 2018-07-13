@@ -25,8 +25,10 @@ public class DbServiceTest {
     @Autowired
     private TaskRepository repository;
 
+
     @Test
     public void testGetAllTasks() {
+        repository.deleteAll();
 
         //Given
         Task task1 = new Task(1L, "Test1", "Content1");
@@ -44,27 +46,60 @@ public class DbServiceTest {
     }
 
     @Test
-    public void testGetTask() {
+    public void testGetTaskById() {
         //Given
         Task task1 = new Task(1L, "Test1", "Content1");
-        Task task2 = new Task(2L, "Test2", "Content2");
-        Task task3 = new Task(3L, "Test3", "Content3");
-        repository.save(task1);
-        repository.save(task2);
-        repository.save(task3);
+        Task saveTask1 = dbService.saveTask(task1);
         //When
-        Optional<Task> result = dbService.getTask(1L);
+        Task result = dbService.getTaskById(saveTask1.getId());
         //Then
-        assertFalse(result.isPresent());
+        assertEquals("Test1", result.getTitle());
+        assertEquals("Content1", result.getContent());
+        assertEquals(result.getId(), saveTask1.getId());
         //Clean Up
         repository.deleteAll();
     }
 
     @Test
     public void testSaveTask() {
+        //Given
+        Task task1 = new Task(1L, "Test1", "Content1");
+        //When
+        Task saveTask1 = dbService.saveTask(task1);
+        //Then
+        assertEquals(task1.getTitle(), saveTask1.getTitle());
+        assertEquals(task1.getContent(), saveTask1.getContent());
+        //Clean Up
+        repository.deleteAll();
     }
 
     @Test
     public void testDeleteTask() {
+        //Given
+        Task task1 = new Task(1L, "Test1", "Content1");
+        //When
+        Task savetask1 = dbService.saveTask(task1);
+        dbService.deleteTask(savetask1.getId());
+        //Then
+        assertNull(dbService.getTaskById(savetask1.getId()));
+    }
+
+    @Test
+    public void testGetTask() {
+
+        //Given
+        Task testTask = new Task(1L, "test", "testing");
+        Task saveTask = dbService.saveTask(testTask);
+
+        //When
+        Optional<Task> result = dbService.getTask(saveTask.getId());
+
+        //Then
+        assertEquals(result.get().getId(), saveTask.getId());
+        assertEquals(result.get().getTitle(), "test");
+        assertEquals(result.get().getContent(), "testing");
+
+        //Cleanup
+        repository.deleteAll();;
     }
 }
