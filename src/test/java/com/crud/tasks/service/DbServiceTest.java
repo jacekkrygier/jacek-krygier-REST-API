@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 
-@SpringBootTest
+/*@SpringBootTest
 @RunWith(SpringRunner.class)
 public class DbServiceTest {
 
@@ -102,4 +102,4 @@ public class DbServiceTest {
         //Cleanup
         repository.deleteAll();;
     }
-}
+}*/
