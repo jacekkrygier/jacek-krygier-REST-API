@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-/*@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class SimpleEmailServiceTest {
 
     @InjectMocks
@@ -33,9 +33,9 @@ public class SimpleEmailServiceTest {
         mailMessage.setText(mail.getMessage());
 
         //When
-        simpleEmailService.send(mail);
+        simpleEmailService.sendSimpleMail(mail);
 
         //Then
         verify(javaMailSender, times(1)).send(mailMessage);
     }
-}*/
+}
