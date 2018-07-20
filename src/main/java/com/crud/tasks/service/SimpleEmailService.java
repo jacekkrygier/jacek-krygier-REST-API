@@ -52,4 +52,22 @@ public class SimpleEmailService {
         };
         return mailMessage;
     }
+    public void sendTasksCountingMail(final Mail mail) {
+        LOGGER.info("Starting daily email preparation...");
+        try {
+            javaMailSender.send(createTasksCountingMimeMessage(mail));
+            LOGGER.info("Email has been sent");
+        } catch (MailException e) {
+            LOGGER.info("Failed to process email sending: " + e.getMessage(), e);
+        }
+    }
+
+    private MimeMessagePreparator createTasksCountingMimeMessage(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.buildTasksCountingEmail(mail.getMessage()),true);
+        };
+    }
 }
