@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 
-/*@SpringBootTest
+@SpringBootTest
 @RunWith(SpringRunner.class)
 public class DbServiceTest {
 
@@ -26,7 +26,7 @@ public class DbServiceTest {
     private TaskRepository repository;
 
 
-    @Test
+   /* @Test
     public void testGetAllTasks() {
         repository.deleteAll();
 
@@ -43,7 +43,7 @@ public class DbServiceTest {
 
         //CleanUp
         repository.deleteAll();
-    }
+    }*/
 
     @Test
     public void testGetTaskById() {
@@ -56,8 +56,6 @@ public class DbServiceTest {
         assertEquals("Test1", result.getTitle());
         assertEquals("Content1", result.getContent());
         assertEquals(result.getId(), saveTask1.getId());
-        //Clean Up
-        repository.deleteAll();
     }
 
     @Test
@@ -69,8 +67,6 @@ public class DbServiceTest {
         //Then
         assertEquals(task1.getTitle(), saveTask1.getTitle());
         assertEquals(task1.getContent(), saveTask1.getContent());
-        //Clean Up
-        repository.deleteAll();
     }
 
     @Test
@@ -99,7 +95,5 @@ public class DbServiceTest {
         assertEquals(result.get().getTitle(), "test");
         assertEquals(result.get().getContent(), "testing");
 
-        //Cleanup
-        repository.deleteAll();;
     }
-}*/
+}
